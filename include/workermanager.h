@@ -6,6 +6,7 @@ using namespace std;
 class Workermanager {
   public:
     Workermanager();
-  void showmenu();
+    void showmenu();
+    void exitexe();
     ~Workermanager();
 };

@@ -1,4 +1,5 @@
 #include "workermanager.h"
+#include <cstdlib>
 #include <iostream>
 
 Workermanager::Workermanager() {
@@ -14,5 +15,9 @@ void Workermanager::showmenu() {
     cout << "5.查找职工信息" << endl;
     cout << "6.按照编号排序" << endl;
     cout << "7.清空所有文档" << endl;
-    
+}
+void Workermanager::exitexe() {
+    cout << "欢迎下次使用" << endl;
+    system("pause");
+    exit(0);
 }
