@@ -1,0 +1,47 @@
+# 👉 一般 C++ 构建文件
+*.o
+*.obj
+*.dll
+*.so
+*.a
+*.lib
+*.exe
+*.out
+*.app
+*.d
+
+# 👉 Qt Creator 自动生成的文件
+*.pro.user
+*.qmake.stash
+*.autosave
+*.moc
+Makefile*
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# 👉 CMake 生成的缓存、构建目录
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+build/
+Makefile
+install_manifest.txt
+
+# 👉 VSCode 配置
+.vscode/
+
+# 👉 系统垃圾文件
+.DS_Store
+Thumbs.db
+
+# 👉 临时文件
+*.log
+*.tmp
+*.swp
+*~
+
+# 👉 MSYS2 编译输出（可选）
+*.stackdump
+
+.clang-format
