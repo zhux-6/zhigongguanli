@@ -10,11 +10,11 @@ using namespace std;
 int main() {
     useUTF8();
 
-    Workermanager test;
+    Workermanager wm;
     int choice = 0;
     while (true) {
 
-        test.showmenu();
+        wm.showmenu();
         cout << "请输入选择" << endl;
         cin >> choice;
         if (cin.fail()) {
@@ -27,9 +27,10 @@ int main() {
         }
         switch (choice) {
         case 0: // 退出
-            test.exitexe();
+            wm.exitexe();
             break;
         case 1: // 添加职工信息
+            wm.addnum();
             break;
         case 2: // 显示职工信息
             break;
