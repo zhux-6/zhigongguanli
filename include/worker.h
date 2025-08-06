@@ -19,3 +19,17 @@ class putong : public worker {
     virtual void showinfo();
     virtual string getbumen();
 };
+class jingli : public worker {
+
+  public:
+    jingli(int id, string name, int bumen);
+    virtual void showinfo();
+    virtual string getbumen();
+};
+class boss : public worker {
+
+  public:
+    boss(int id, string name, int bumen);
+    virtual void showinfo();
+    virtual string getbumen();
+};
