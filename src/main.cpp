@@ -1,3 +1,4 @@
+
 #include "utils.h"
 #include "worker.h"
 #include "workermanager.h"
@@ -8,7 +9,7 @@
 using namespace std;
 
 int main() {
-    useUTF8();
+
 
     Workermanager wm;
     int choice = 0;
@@ -21,8 +22,8 @@ int main() {
             cout << "输入无效，请重新输入一个数字！" << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            system("pause");
-            system("cls");
+            pause();
+            clear_screen() ;
             continue;
         }
         switch (choice) {
@@ -45,11 +46,11 @@ int main() {
         case 7: // 清空所有文档
             break;
         default:
-            system("cls");
+            clear_screen() ;
             break;
         }
     }
 
-    system("pause");
+
     return 0;
 }

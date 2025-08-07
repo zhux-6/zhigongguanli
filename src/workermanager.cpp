@@ -1,20 +1,24 @@
 #include "workermanager.h"
-#include "utils.h"
 #include "worker.h"
-#include <cstdlib>
-#include <iostream>
+#include "utils.h"
+#include <fstream>
 
 Workermanager::Workermanager() {
     m_num = 0;
     m_array = nullptr;
 }
 
-
-
 Workermanager::~Workermanager() {
+    if (this->m_array != nullptr) {
+        for (int i = 0; i < m_num; i++) {
+            // 逐个释放每个worker对象
+            delete this->m_array[i];
+        }
+        // 释放指针数组本身
+        delete[] this->m_array;
+        this->m_array = nullptr;
+    }
 }
-
-
 
 void Workermanager::showmenu() {
     cout << "0.退出程序" << endl;
@@ -27,16 +31,11 @@ void Workermanager::showmenu() {
     cout << "7.清空所有文档" << endl;
 }
 
-
-
 void Workermanager::exitexe() {
     cout << "欢迎下次使用" << endl;
-    system("pause");
+    pause();
     exit(0);
 }
-
-
-
 
 void Workermanager ::addnum() {
     cout << "输入要添加的数量" << endl;
@@ -93,11 +92,23 @@ void Workermanager ::addnum() {
         this->m_num = newsize;
 
         cout << "成功添加" << cinnum << "名新职工" << endl;
+        this->save();
 
     } else {
         cout << "输入有误" << endl;
     }
 
-    system("pause");
-    system("cls");
+    pause();
+    clear_screen() ;
+}
+
+void Workermanager::save() {
+    ofstream ofs;
+    ofs.open(FILENAME, ios::out);
+
+    for (int i = 0; i < m_num; i++) {
+        ofs << this->m_array[i]->m_id << '\t' << this->m_array[i]->m_name << '\t' << this->m_array[i]->bumen << endl;
+    }
+
+    ofs.close();
 }

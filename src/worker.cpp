@@ -1,6 +1,5 @@
 #include "worker.h"
-#include <iostream>
-#include <string>
+
 
 
 //普通职工
@@ -8,6 +7,8 @@ putong::putong(int id, string name, int bumen) {
     this->m_id = id;
     this->m_name = name;
     this->bumen = bumen;
+}
+worker:: ~worker() {
 }
 
 void putong::showinfo() {

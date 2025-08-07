@@ -13,15 +13,17 @@ elseif (MSVC)
 endif()
 
 # 生成 compile_commands.json 以支持 clangd 等工具
+
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # 建议：显式列出源文件，以避免 file(GLOB) 的问题。
 # 当添加新文件时，构建系统能自动感知。
 set(SRCS
     "src/main.cpp"
-    "src/utils.cpp"
     "src/worker.cpp"
     "src/workermanager.cpp"
+    "src/utils.cpp"
     
     # "src/another_file.cpp" # 在这里添加新的源文件
 )

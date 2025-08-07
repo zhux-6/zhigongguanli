@@ -8,6 +8,8 @@ class worker {
   public:
     virtual void showinfo() = 0;
     virtual string getbumen() = 0;
+    virtual ~worker();
+    
     int m_id;
     string m_name;
     int bumen;
