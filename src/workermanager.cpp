@@ -1,23 +1,42 @@
 #include "workermanager.h"
-#include "worker.h"
 #include "utils.h"
+#include "worker.h"
 #include <fstream>
 
 Workermanager::Workermanager() {
-    m_num = 0;
-    m_array = nullptr;
-}
-
-Workermanager::~Workermanager() {
-    if (this->m_array != nullptr) {
-        for (int i = 0; i < m_num; i++) {
-            // 逐个释放每个worker对象
-            delete this->m_array[i];
-        }
-        // 释放指针数组本身
-        delete[] this->m_array;
-        this->m_array = nullptr;
+    ifstream ifs;
+    ifs.open(FILENAME, ios::in);
+    if (!ifs.is_open()) {
+        // cout << "文件不存在！" << endl;
+        m_num = 0;
+        m_array = nullptr;
+        m_iskong = true;
+        ifs.close();
+        return;
     }
+
+    char ch;
+    ifs >> ch;
+    if (ifs.eof()) {
+        // cout << "文件为空！" << endl;
+        m_num = 0;
+        m_array = nullptr;
+        m_iskong = true;
+        ifs.close();
+        return;
+    }
+    ifs.close();
+
+    int num = this->get_innum();
+    // cout << "职工个数为" << num << endl;
+    this->m_num = num;
+
+    this->m_array = new worker *[this->m_num];
+    this->begin_worker(); // 初始化数据
+
+    //     for (int i = 0; i < this->m_num; i++) {
+    //     cout<<this->m_array[i]->m_id<<"   "<<this->m_array[i]->m_name<<"   "<<this->m_array[i]->bumen<<endl;
+    //     }
 }
 
 void Workermanager::showmenu() {
@@ -93,13 +112,14 @@ void Workermanager ::addnum() {
 
         cout << "成功添加" << cinnum << "名新职工" << endl;
         this->save();
+        this->m_iskong = false;
 
     } else {
         cout << "输入有误" << endl;
     }
 
     pause();
-    clear_screen() ;
+    clear_screen();
 }
 
 void Workermanager::save() {
@@ -111,4 +131,59 @@ void Workermanager::save() {
     }
 
     ofs.close();
+}
+
+int Workermanager::get_innum() {
+    ifstream ifs2;
+    ifs2.open(FILENAME, ios::in);
+
+    int d_id;
+    string d_name;
+    int d_bumen;
+
+    int num = 0;
+
+    while (ifs2 >> d_id && ifs2 >> d_name && ifs2 >> d_bumen) {
+        num++;
+    }
+    ifs2.close();
+    return num;
+}
+
+void Workermanager::begin_worker() {
+    ifstream ifs;
+    ifs.open(FILENAME, ios::in);
+
+    int i_id;
+    string i_name;
+    int i_bumen;
+
+    int shu = 0;
+
+    while (ifs >> i_id && ifs >> i_name && ifs >> i_bumen) {
+        worker *wkr = nullptr;
+
+        if (i_bumen == 1) {
+            wkr = new putong(i_id, i_name, i_bumen);
+        } else if (i_bumen == 2) {
+            wkr = new jingli(i_id, i_name, i_bumen);
+        } else {
+            wkr = new boss(i_id, i_name, i_bumen);
+        }
+        this->m_array[shu] = wkr;
+        shu++;
+    }
+    ifs.close();
+}
+
+Workermanager::~Workermanager() {
+    if (this->m_array != nullptr) {
+        for (int i = 0; i < m_num; i++) {
+            // 逐个释放每个worker对象
+            delete this->m_array[i];
+        }
+        // 释放指针数组本身
+        delete[] this->m_array;
+        this->m_array = nullptr;
+    }
 }

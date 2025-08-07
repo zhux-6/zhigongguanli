@@ -5,6 +5,5 @@
 
 
 
-void useUTF8();
 void pause();
 void clear_screen();
