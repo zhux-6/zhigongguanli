@@ -193,7 +193,7 @@ void Workermanager::del_worker() {
     if (this->m_iskong) {
         cout << "文件不存在或记录为空，无法删除。" << endl;
     } else {
-        cout << "请输入想要删除的职工ID：" << endl;
+        cout << "请输入想要删除的职工ID:" << endl;
         int v_id = 0;
         cin >> v_id;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -234,7 +234,7 @@ void Workermanager::del_worker() {
     }
     std::cout << "按任意键继续..." << std::endl;
     std::cin.get();
-    
+
     clear_screen();
 }
 
@@ -248,6 +248,80 @@ int Workermanager::iscunzai(int id) {
         }
     }
     return in_num;
+}
+
+void Workermanager::change_worker() {
+    if (this->m_iskong) {
+        cout << "文件不存在或记录为空" << endl;
+    } else {
+        cout << "输入要修改职工的ID" << endl;
+        int v_id;
+        cin >> v_id;
+        // cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        int index = this->iscunzai(v_id);
+
+        if (index != -1) {
+            char confirm;
+            cout << "找到职工: ";
+
+            this->m_array[index]->showinfo();
+
+            cout << "确定要修改吗？(Y/N): ";
+
+            cin >> confirm;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (confirm == 'Y' || confirm == 'y') {
+
+                delete this->m_array[index];
+                this->m_array[index] = nullptr;
+
+                int new_id = 0;
+                string new_name = "";
+                int new_bumen = 0;
+
+                cout << "输入新职工编号" << endl;
+                cin >> new_id;
+
+                cout << "输入新职工姓名" << endl;
+                cin >> new_name;
+
+                cout << "选择岗位" << endl;
+                cout << "1、普通职工" << endl;
+                cout << "2、经理" << endl;
+                cout << "3、老板" << endl;
+
+                cin >> new_bumen;
+
+                worker *wk = nullptr;
+
+                switch (new_bumen) {
+                case 1:
+                    wk = new putong(new_id, new_name, new_bumen);
+                    break;
+                case 2:
+                    wk = new jingli(new_id, new_name, new_bumen);
+                    break;
+                case 3:
+                    wk = new boss(new_id, new_name, new_bumen);
+                    break;
+                default:
+                    break;
+                }
+
+                this->m_array[index] = wk;
+
+                cout << "修改成功" << this->m_array[index]->getbumen() << endl;
+
+                this->save();
+
+            } else {
+                cout << "已取消修改" << endl;
+            }
+        }
+    }
+    pause1();
+    clear_screen();
 }
 
 Workermanager::~Workermanager() {

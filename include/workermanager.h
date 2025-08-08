@@ -33,7 +33,9 @@ class Workermanager {
 
     void del_worker(); // 删除
 
-    int iscunzai(int id);
+    int iscunzai(int id); // 判断是否存在
+
+    void change_worker();//修改
 
     
     ~Workermanager();
