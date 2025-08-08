@@ -273,16 +273,28 @@ void Workermanager::change_worker() {
 
             if (confirm == 'Y' || confirm == 'y') {
 
-                delete this->m_array[index];
-                this->m_array[index] = nullptr;
+                // delete this->m_array[index];
+                // this->m_array[index] = nullptr;
 
                 int new_id = 0;
                 string new_name = "";
                 int new_bumen = 0;
 
-                cout << "输入新职工编号" << endl;
-                cin >> new_id;
+                while (true) {
+                    cout << "输入新职工编号" << endl;
 
+                    cin >> new_id;
+
+                    if (this->iscunzai(new_id) != -1 && this->m_array[index]->m_id != new_id) {
+
+                        cout << "编号与已有职工重复" << endl;
+                    } else {
+
+                        break;
+                    }
+                }
+
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "输入新职工姓名" << endl;
                 cin >> new_name;
 
@@ -308,16 +320,76 @@ void Workermanager::change_worker() {
                 default:
                     break;
                 }
+                if (wk != nullptr) {
 
-                this->m_array[index] = wk;
+                    delete this->m_array[index];
 
-                cout << "修改成功" << this->m_array[index]->getbumen() << endl;
+                    this->m_array[index] = wk;
 
-                this->save();
+                    cout << "修改成功" << endl;
+
+                    this->save();
+                } else {
+                    cout << "修改失败，无法创建新职工对象" << endl;
+                }
 
             } else {
                 cout << "已取消修改" << endl;
             }
+        }
+    }
+    pause1();
+    clear_screen();
+}
+
+void Workermanager::find_worker() {
+    if (this->m_iskong) {
+        cout << "文件不存在或记录为空" << endl;
+
+    } else {
+
+        cout << "请输入要查找的方式：" << endl;
+        cout << "1、按ID查找" << endl;
+        cout << "2、按姓名查找" << endl;
+
+        int select = 0;
+        cin >> select;
+
+        if (select == 1) {
+            int iid;
+            cout << "输入查找职工ID" << endl;
+            cin >> iid;
+
+            int index = iscunzai(iid);
+
+            if (index != -1) {
+                cout << "查找成功，信息如下:" << endl;
+                cout << *this->m_array[index];
+            } else {
+
+                cout << "查无此人" << endl;
+            }
+        } else if (select == 2) {
+
+            string iname;
+            cout << "输入要查找的姓名" << endl;
+            cin >> iname;
+
+            bool flag = false;
+
+            for (int i = 0; i < m_num; i++) {
+                if (m_array[i]->m_name == iname) {
+
+                    cout << *this->m_array[i];
+
+                    flag = true;
+                }
+            }
+            if (flag == false) {
+                cout << "查无此人" << endl;
+            }
+        }else {
+        cout<<"输入选项有误"<<endl;
         }
     }
     pause1();

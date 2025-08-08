@@ -35,7 +35,9 @@ class Workermanager {
 
     int iscunzai(int id); // 判断是否存在
 
-    void change_worker();//修改
+    void change_worker(); // 修改
+
+    void find_worker();
 
     
     ~Workermanager();

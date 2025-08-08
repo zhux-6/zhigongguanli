@@ -41,6 +41,7 @@ int main() {
             wm.change_worker();
             break;
         case 5: // 查找职工信息
+            wm.find_worker();
             break;
         case 6: // 按照编号排序
             break;
