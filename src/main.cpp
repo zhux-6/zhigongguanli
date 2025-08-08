@@ -22,7 +22,7 @@ int main() {
             cout << "输入无效，请重新输入一个数字！" << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            pause();
+           pause1();
             clear_screen() ;
             continue;
         }
@@ -34,6 +34,7 @@ int main() {
             wm.addnum();
             break;
         case 2: // 显示职工信息
+            wm.show_worker();
             break;
         case 3: // 删除离职职工
             break;

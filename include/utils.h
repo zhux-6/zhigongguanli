@@ -5,5 +5,6 @@
 
 
 
-void pause();
+
+void pause1();
 void clear_screen();

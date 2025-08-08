@@ -2,35 +2,37 @@
 #include "utils.h"
 #include "worker.h"
 #include <fstream>
+#include <unistd.h>
 
 Workermanager::Workermanager() {
-    ifstream ifs;
-    ifs.open(FILENAME, ios::in);
+    this->m_num = 0;
+    this->m_array = nullptr;
+    this->m_iskong = false;
+
+    ifstream ifs(FILENAME);
+
+    // 1. 检查文件是否存在
     if (!ifs.is_open()) {
-        // cout << "文件不存在！" << endl;
-        m_num = 0;
-        m_array = nullptr;
-        m_iskong = true;
+        cout << "文件不存在！" << endl;
+        this->m_iskong = true;
+        return;
+    }
+
+    // 2. 检查文件是否为空
+
+    ifs.seekg(0, ios::end);
+    if (ifs.tellg() == 0) {
+        cout << "文件为空！" << endl;
+        this->m_iskong = true;
         ifs.close();
         return;
     }
 
-    char ch;
-    ifs >> ch;
-    if (ifs.eof()) {
-        // cout << "文件为空！" << endl;
-        m_num = 0;
-        m_array = nullptr;
-        m_iskong = true;
-        ifs.close();
-        return;
-    }
-    ifs.close();
+    ifs.seekg(0, ios::beg);
 
     int num = this->get_innum();
     // cout << "职工个数为" << num << endl;
     this->m_num = num;
-
     this->m_array = new worker *[this->m_num];
     this->begin_worker(); // 初始化数据
 
@@ -52,7 +54,7 @@ void Workermanager::showmenu() {
 
 void Workermanager::exitexe() {
     cout << "欢迎下次使用" << endl;
-    pause();
+    pause1();
     exit(0);
 }
 
@@ -118,7 +120,7 @@ void Workermanager ::addnum() {
         cout << "输入有误" << endl;
     }
 
-    pause();
+    pause1();
     clear_screen();
 }
 
@@ -174,6 +176,18 @@ void Workermanager::begin_worker() {
         shu++;
     }
     ifs.close();
+}
+
+void Workermanager::show_worker() {
+    if (this->m_iskong) {
+        cout << "文件不存在或者记录为空" << endl;
+    } else {
+        for (int i = 0; i < m_num; i++) {
+            this->m_array[i]->showinfo();
+        }
+    }
+    pause1();
+    clear_screen();
 }
 
 Workermanager::~Workermanager() {

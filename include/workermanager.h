@@ -27,7 +27,9 @@ class Workermanager {
 
     int get_innum();//获取本地人数
 
-    void begin_worker();//本地获取初始化
+    void begin_worker(); // 本地获取初始化
+
+    void show_worker();//显示职工信息
     
     ~Workermanager();
 };

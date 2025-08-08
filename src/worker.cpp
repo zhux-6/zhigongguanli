@@ -12,9 +12,9 @@ worker:: ~worker() {
 }
 
 void putong::showinfo() {
-    cout << "职工编号" << this->m_id << endl;
-    cout << "职工姓名" << this->m_name << endl;
-    cout<<"职工部门"<<this->getbumen()<<endl;
+    cout << "职工编号: " << this->m_id << endl;
+    cout << "职工姓名: " << this->m_name << endl;
+    cout<<"职工部门: "<<this->getbumen()<<endl;
 }
 string putong::getbumen() {
     return string("普通职工");
@@ -28,8 +28,8 @@ jingli::jingli(int id, string name, int bumen) {
 }
 
 void jingli::showinfo() {
-    cout << "职工编号" << this->m_id << endl;
-    cout << "职工姓名" << this->m_name << endl;
+    cout << "职工编号" << this->m_id << '\t';
+    cout << "职工姓名" << this->m_name << '\t';
     cout << "职工部门" << this->getbumen() << endl;
 }
 string jingli::getbumen() {
