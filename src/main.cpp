@@ -5,11 +5,9 @@
 #include <iostream>
 #include <limits>
 
-
 using namespace std;
 
 int main() {
-
 
     Workermanager wm;
     int choice = 0;
@@ -22,8 +20,8 @@ int main() {
             cout << "输入无效，请重新输入一个数字！" << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-           pause1();
-            clear_screen() ;
+            pause1();
+            clear_screen();
             continue;
         }
         switch (choice) {
@@ -37,6 +35,7 @@ int main() {
             wm.show_worker();
             break;
         case 3: // 删除离职职工
+            wm.del_worker();
             break;
         case 4: // 修改职工信息
             break;
@@ -47,11 +46,10 @@ int main() {
         case 7: // 清空所有文档
             break;
         default:
-            clear_screen() ;
+            clear_screen();
             break;
         }
     }
-
 
     return 0;
 }

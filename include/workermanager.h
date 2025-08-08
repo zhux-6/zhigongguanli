@@ -29,7 +29,12 @@ class Workermanager {
 
     void begin_worker(); // 本地获取初始化
 
-    void show_worker();//显示职工信息
+    void show_worker(); // 显示职工信息
+
+    void del_worker(); // 删除
+
+    int iscunzai(int id);
+
     
     ~Workermanager();
 };

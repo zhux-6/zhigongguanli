@@ -2,7 +2,6 @@
 #include "utils.h"
 #include "worker.h"
 #include <fstream>
-#include <unistd.h>
 
 Workermanager::Workermanager() {
     this->m_num = 0;
@@ -190,6 +189,67 @@ void Workermanager::show_worker() {
     clear_screen();
 }
 
+void Workermanager::del_worker() {
+    if (this->m_iskong) {
+        cout << "文件不存在或记录为空，无法删除。" << endl;
+    } else {
+        cout << "请输入想要删除的职工ID：" << endl;
+        int v_id = 0;
+        cin >> v_id;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        int index = this->iscunzai(v_id);
+
+        if (index != -1) {
+            char confirm;
+            cout << "找到职工: ";
+            this->m_array[index]->showinfo();
+            cout << "确定要删除吗？(Y/N): ";
+            cin >> confirm;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (confirm == 'Y' || confirm == 'y') {
+
+                delete this->m_array[index];
+                this->m_array[index] = nullptr;
+
+                for (int i = index; i < this->m_num - 1; i++) {
+                    this->m_array[i] = this->m_array[i + 1];
+                }
+                // 更新职工总人数
+                this->m_num--;
+
+                this->save();
+                cout << "删除成功！" << endl;
+
+                if (this->m_num == 0) {
+                    this->m_iskong = true;
+                }
+            } else {
+                cout << "已取消删除操作。" << endl;
+            }
+        } else {
+            cout << "删除失败，未找到该职工！" << endl;
+        }
+    }
+    std::cout << "按任意键继续..." << std::endl;
+    std::cin.get();
+    
+    clear_screen();
+}
+
+int Workermanager::iscunzai(int id) {
+    int in_num = -1;
+
+    for (int i = 0; i < this->m_num; i++) {
+        if (this->m_array[i]->m_id == id) {
+            in_num = i;
+            break;
+        }
+    }
+    return in_num;
+}
+
 Workermanager::~Workermanager() {
     if (this->m_array != nullptr) {
         for (int i = 0; i < m_num; i++) {
@@ -198,6 +258,7 @@ Workermanager::~Workermanager() {
         }
         // 释放指针数组本身
         delete[] this->m_array;
+
         this->m_array = nullptr;
     }
 }
