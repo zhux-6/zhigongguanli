@@ -41,7 +41,9 @@ class Workermanager {
 
     void paixu(); // 排序
 
-    void clean_file();//清空
+    void clean_file(); // 清空
+
+    void m1();
 
     
     ~Workermanager();
