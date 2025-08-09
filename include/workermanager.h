@@ -43,7 +43,7 @@ class Workermanager {
 
     void clean_file(); // 清空
 
-    void m1();
+
 
     
     ~Workermanager();
