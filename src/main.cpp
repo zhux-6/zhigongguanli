@@ -47,6 +47,7 @@ int main() {
             wm.paixu();
             break;
         case 7: // 清空所有文档
+            wm.clean_file();
             break;
         default:
             clear_screen();

@@ -21,7 +21,7 @@ Workermanager::Workermanager() {
 
     ifs.seekg(0, ios::end);
     if (ifs.tellg() == 0) {
-        cout << "文件为空！" << endl;
+       // cout << "文件为空！" << endl;
         this->m_iskong = true;
         ifs.close();
         return;
@@ -77,11 +77,10 @@ void Workermanager ::addnum() {
             string name;
             int bumen;
             while (true) {
-                bool idchongfu = false; 
+                bool idchongfu = false;
                 cout << "输入第" << i + 1 << "个新职工编号" << endl;
                 cin >> id;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
                 if (this->iscunzai(id) != -1) {
                     idchongfu = true;
@@ -431,16 +430,16 @@ void Workermanager::paixu() {
         while (true) {
 
             cin >> select;
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            // cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (select == 1 || select == 2) {
                 break;
             } else {
                 cout << "输入有误，请重新选择。" << endl;
             }
-        }                                                
+        }
 
-        for (int i=0; i < m_num; i++) {
+        for (int i = 0; i < m_num; i++) {
             int minormax = i;
 
             for (int j = i + 1; j < m_num; j++) {
@@ -471,6 +470,42 @@ void Workermanager::paixu() {
         this->save();
         this->show_worker();
     }
+}
+
+void Workermanager::clean_file() {
+    char confirm;
+    cout << "确定要清空吗？(Y/N):";
+
+    cin >> confirm;
+    //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    if (confirm == 'Y' || confirm == 'y') {
+
+        ofstream ofs;
+        ofs.open(FILENAME, ios::trunc);
+        ofs.close();
+
+        if (this->m_array != nullptr) {
+
+            for (int i = 0; i < m_num; i++) {
+
+                if (this->m_array[i] != nullptr) {
+
+                    delete this->m_array[i];
+                }
+            }
+            this->m_num = 0;
+            delete[] this->m_array;
+            this->m_array = nullptr;
+
+            this->m_iskong = true;
+        }
+        cout << "成功清空" << endl;
+    } else {
+        cout << "已取消操作" << endl;
+    }
+    pause1();
+    clear_screen();
 }
 
 Workermanager::~Workermanager() {
