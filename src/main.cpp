@@ -3,7 +3,6 @@
 #include "worker.h"
 #include "workermanager.h"
 #include <iostream>
-#include <limits>
 
 using namespace std;
 
@@ -16,6 +15,7 @@ int main() {
         wm.showmenu();
         cout << "请输入选择" << endl;
         cin >> choice;
+
         if (cin.fail()) {
             cout << "输入无效，请重新输入一个数字！" << endl;
             cin.clear();
@@ -44,6 +44,7 @@ int main() {
             wm.find_worker();
             break;
         case 6: // 按照编号排序
+            wm.paixu();
             break;
         case 7: // 清空所有文档
             break;

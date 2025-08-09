@@ -37,7 +37,9 @@ class Workermanager {
 
     void change_worker(); // 修改
 
-    void find_worker();
+    void find_worker(); // 查找
+
+    void paixu();//排序
 
     
     ~Workermanager();
